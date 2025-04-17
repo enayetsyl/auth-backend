@@ -168,7 +168,11 @@ export const passwordResetRequest = async (
     
     // Construct the password reset URL.
     // Adjust the protocol, host, and route as required for your deployment.
+    console.log('protocol', req.protocol)
+    console.log('host', req.get('host'))
     const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/password-reset/confirm?token=${resetToken}`;
+
+    console.log('reset url', resetUrl)
     
     // Use the email service to send a password reset email.
     await sendEmail({
