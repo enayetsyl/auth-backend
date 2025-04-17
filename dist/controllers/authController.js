@@ -146,7 +146,7 @@ exports.login = login;
  */
 const passwordResetRequest = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email } = req.body;
+        const { email, redirectUrl } = req.body;
         if (!email) {
             res.status(400).json({ message: "Email is required." });
             return;
@@ -169,12 +169,9 @@ const passwordResetRequest = (req, res, next) => __awaiter(void 0, void 0, void 
         }
         // Generate a password reset token that expires in 1 hour.
         const resetToken = jsonwebtoken_1.default.sign({ userId: user._id }, config_1.default.JWT_SECRET, { expiresIn: '1h' });
-        // Construct the password reset URL.
-        // Adjust the protocol, host, and route as required for your deployment.
-        console.log('protocol', req.protocol);
-        console.log('host', req.get('host'));
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/password-reset/confirm?token=${resetToken}`;
-        console.log('reset url', resetUrl);
+        // Build the link using the provided redirectUrl (or a default fallback)
+        const base = redirectUrl;
+        const resetUrl = `${base.replace(/\/$/, "")}/reset-password?token=${resetToken}`;
         // Use the email service to send a password reset email.
         yield (0, emailService_1.sendEmail)({
             to: user.email,

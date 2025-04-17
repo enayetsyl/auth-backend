@@ -134,7 +134,7 @@ export const passwordResetRequest = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { email } = req.body;
+    const { email, redirectUrl } = req.body;
     if (!email) {
       res.status(400).json({ message: "Email is required." });
       return;
@@ -166,13 +166,12 @@ export const passwordResetRequest = async (
       { expiresIn: '1h' }
     );
     
-    // Construct the password reset URL.
-    // Adjust the protocol, host, and route as required for your deployment.
-    console.log('protocol', req.protocol)
-    console.log('host', req.get('host'))
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/password-reset/confirm?token=${resetToken}`;
+    // Build the link using the provided redirectUrl (or a default fallback)
+    const base =
+      redirectUrl
 
-    console.log('reset url', resetUrl)
+    const resetUrl = `${base.replace(/\/$/, "")}/reset-password?token=${resetToken}`;
+
     
     // Use the email service to send a password reset email.
     await sendEmail({
