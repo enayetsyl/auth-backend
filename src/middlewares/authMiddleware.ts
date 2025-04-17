@@ -4,9 +4,8 @@ import config from '../config';
 
 interface JwtPayload {
   userId: string;
-  // Add additional claims if needed, for example:
-  // email: string;
-  // tenant: string;
+  tenant?: string;
+role: string;
 }
 
 /**

@@ -74,6 +74,7 @@ export function generateToken(user: IGlobalUser, tenantId?: string): string {
   const payload = {
     userId: user._id,
     tenant: tenantId,
+    role: user.role,
   };
 
   return jwt.sign(payload,  config.JWT_SECRET as jwt.Secret,
@@ -95,6 +96,11 @@ export function verifyToken(token: string): any {
  * Refreshes the token by decoding the old token (ignoring expiration) and signing a new one.
  */
 export function refreshToken(oldToken: string): string {
-  const decoded = jwt.verify(oldToken, config.JWT_SECRET, { ignoreExpiration: true }) as { userId: string; tenant?: string };
-  return generateToken({ _id: decoded.userId } as IGlobalUser, decoded.tenant);
+  const decoded = jwt.verify(oldToken, config.JWT_SECRET, { ignoreExpiration: true }) as { userId: string; tenant?: string; role?: string; };
+
+ return jwt.sign(
+      { userId: decoded.userId, tenant: decoded.tenant, role: decoded.role },
+     config.JWT_SECRET as jwt.Secret,
+       { expiresIn: config.JWT_EXPIRES_IN } as jwt.SignOptions 
+    );
 }

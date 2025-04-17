@@ -74,6 +74,7 @@ function generateToken(user, tenantId) {
     const payload = {
         userId: user._id,
         tenant: tenantId,
+        role: user.role,
     };
     return jsonwebtoken_1.default.sign(payload, config_1.default.JWT_SECRET, { expiresIn: config_1.default.JWT_EXPIRES_IN });
 }
@@ -91,5 +92,5 @@ function verifyToken(token) {
  */
 function refreshToken(oldToken) {
     const decoded = jsonwebtoken_1.default.verify(oldToken, config_1.default.JWT_SECRET, { ignoreExpiration: true });
-    return generateToken({ _id: decoded.userId }, decoded.tenant);
+    return jsonwebtoken_1.default.sign({ userId: decoded.userId, tenant: decoded.tenant, role: decoded.role }, config_1.default.JWT_SECRET, { expiresIn: config_1.default.JWT_EXPIRES_IN });
 }

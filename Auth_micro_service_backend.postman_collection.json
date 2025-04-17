@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "a7a82456-83f7-469b-bc46-2456fac439ef",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32020001",
+		"_collection_link": "https://aaa999-9536.postman.co/workspace/Auth-Service~bd008094-f660-4687-bedf-833eb111090c/collection/32020001-a7a82456-83f7-469b-bc46-2456fac439ef?action=share&source=collection_link&creator=32020001"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"testuser\",\r\n  \"email\": \"enayetflweb@gmail.com\",\r\n  \"password\": \"yourpassword\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/register",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"enayetflweb@gmail.com\",\r\n  \"password\": \"yourpassword\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/login",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "password-reset",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"enayetflweb@gmail.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/password-reset",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"password-reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "password-reset-confirm",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkzNTIsImV4cCI6MTc0NDY5Mjk1Mn0.8jFuYtC3daMFOBWaf6tAhOc2eep9UMPjhMs_A_ikrVI\",\r\n  \"newPassword\": \"newpassword123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/password-reset/confirm",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"password-reset",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh-token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkzNTIsImV4cCI6MTc0NDY5Mjk1Mn0.8jFuYtC3daMFOBWaf6tAhOc2eep9UMPjhMs_A_ikrVI\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/refresh-token",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "email-verification",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkwNDMsImV4cCI6MTc0NDc3NTQ0M30.yBq3ywJ6Vi9dvNIb2_Q-QiZiDGBBx4ItwuAsiTESA9U",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"verify-email"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkwNDMsImV4cCI6MTc0NDc3NTQ0M30.yBq3ywJ6Vi9dvNIb2_Q-QiZiDGBBx4ItwuAsiTESA9U"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkwNDMsImV4cCI6MTc0NDc3NTQ0M30.yBq3ywJ6Vi9dvNIb2_Q-QiZiDGBBx4ItwuAsiTESA9U",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJpYXQiOjE3NDQ2ODkzNTIsImV4cCI6MTc0NDY5Mjk1Mn0.8jFuYtC3daMFOBWaf6tAhOc2eep9UMPjhMs_A_ikrVI\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/logout",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJ0ZW5hbnQiOiJ0ZW5hbnRBIiwiaWF0IjoxNzQ0NjkxMDUzLCJleHAiOjE3NDQ2OTQ2NTN9.-XcWfwPYWTvf4Rs95uDCERm45eYpk6zyuEe9dfKsGEM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/profile",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change-password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-ID",
+						"value": "tenantA",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZkZDc5M2ZmZjhlOWQwMzkxN2Y2OWIiLCJ0ZW5hbnQiOiJ0ZW5hbnRBIiwiaWF0IjoxNzQ0NjkxMDUzLCJleHAiOjE3NDQ2OTQ2NTN9.-XcWfwPYWTvf4Rs95uDCERm45eYpk6zyuEe9dfKsGEM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"currentPassword\": \"newpassword123\",\r\n  \"newPassword\": \"yourpassword\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth-backend-micro-service.vercel.app/api/v1/auth/change-password",
+					"protocol": "https",
+					"host": [
+						"auth-backend-micro-service",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

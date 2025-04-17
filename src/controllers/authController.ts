@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { z } from "zod";
 import config from "../config";
-import { getGlobalUserModel, IGlobalUser } from "../models/user.model";
+import { getGlobalUserModel } from "../models/user.model";
 import {
   registerSchema,
   loginSchema,
@@ -38,6 +37,7 @@ export const register = async (
 
     // Check if a user with the same email already exists
     const existingUser = await User.findOne({ email: parsedData.email });
+
     if (existingUser) {
       res.status(409).json({ message: "User with this email already exists." });
       return;
