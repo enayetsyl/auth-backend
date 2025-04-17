@@ -60,6 +60,8 @@ const authService_1 = require("../services/authService");
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const parsedData = validation_1.registerSchema.parse(req.body);
+        // Allow clients to pass their own frontend URL for the verification link
+        const { frontendUrl } = req.body;
         // Get the tenant-specific database connection (set by tenant middleware)
         const connection = req.dbConnection;
         if (!connection) {
@@ -81,8 +83,12 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         yield newUser.save();
         // Generate a verification token (valid for 24h)
         const verificationToken = jsonwebtoken_1.default.sign({ userId: newUser._id }, config_1.default.JWT_SECRET, { expiresIn: "24h" });
-        // Construct the verification URL (adjust protocol/host as needed)
-        const verificationUrl = `${req.protocol}://${req.get("host")}/api/auth/verify-email?token=${verificationToken}`;
+        // Determine base URL: use provided frontendUrl (no trailing slash) or fallback to backend host
+        const base = typeof frontendUrl === "string" && frontendUrl.trim()
+            ? frontendUrl.replace(/\/$/, "")
+            : `${req.protocol}://${req.get("host")}`;
+        // Build the link that your frontend will handle
+        const verificationUrl = `${base}/verify-email?token=${verificationToken}`;
         // Send verification email using the email service (Nodemailer)
         yield (0, emailService_1.sendEmail)({
             to: newUser.email,

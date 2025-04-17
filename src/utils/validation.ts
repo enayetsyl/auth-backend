@@ -2,10 +2,15 @@ import { z } from 'zod';
 
 export const registerSchema = z.object({
   username: z.string().min(3, { message: 'Username must be at least 3 characters.' }),
-  email: z.string().email({ message: 'Invalid email address.' }),
+  email:    z.string().email({ message: 'Invalid email address.' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
-  role: z.string().optional(),
+  role:     z.string().optional(),
+  frontendUrl: z
+    .string()
+    .url({ message: 'Invalid frontend URL.' })
+    .optional(),
 });
+
 
 export const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
