@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const config_1 = __importDefault(require("./config"));
+const cors_1 = __importDefault(require("cors"));
 const tenantMiddleware_1 = __importDefault(require("./middlewares/tenantMiddleware"));
 const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
@@ -21,6 +22,21 @@ app.use((req, res, next) => {
     logger_1.default.info(`${req.method} ${req.url}`);
     next();
 });
+// CORS: whitelist only http://localhost:3000
+const whitelist = ['http://localhost:3000'];
+const corsOptions = {
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin || whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+};
+app.use((0, cors_1.default)(corsOptions));
 // Tenant Middleware: Extracts the tenant identifier (e.g., from header 'X-Tenant-ID')
 // and establishes a dynamic DB connection for each request.
 app.use(tenantMiddleware_1.default);

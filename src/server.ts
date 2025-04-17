@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import config from './config';
+import cors, { CorsOptions } from 'cors';
 import tenantMiddleware from './middlewares/tenantMiddleware';
 import errorHandler from './middlewares/errorHandler';
 import authRoutes from './routes/authRoutes';
@@ -20,6 +21,22 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.url}`);
   next();
 });
+
+
+// CORS: whitelist only http://localhost:3000
+const whitelist = ['http://localhost:3000'];
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, 
+};
+app.use(cors(corsOptions));
 
 // Tenant Middleware: Extracts the tenant identifier (e.g., from header 'X-Tenant-ID')
 // and establishes a dynamic DB connection for each request.
