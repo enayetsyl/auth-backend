@@ -20,8 +20,8 @@ function getConnectionString(tenantId: string): string | null {
       return config.TENANT_A_MONGO_URI;
     case 'tenantB':
       return config.TENANT_B_MONGO_URI;
-    case 'tenantC':
-      return config.TENANT_C_MONGO_URI;
+    case 'school-attendance':
+      return config.SCHOOL_ATTENDANCE_MONGO_URI;
     case 'tenantD':
       return config.TENANT_D_MONGO_URI;
     default:

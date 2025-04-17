@@ -7,7 +7,7 @@ interface Config {
   JWT_EXPIRES_IN: string;
   TENANT_A_MONGO_URI: string;
   TENANT_B_MONGO_URI: string;
-  TENANT_C_MONGO_URI: string;
+  SCHOOL_ATTENDANCE_MONGO_URI: string;
   TENANT_D_MONGO_URI: string;
   MONGO_URI_DEFAULT: string;
   EMAIL_HOST: string;
@@ -26,7 +26,7 @@ const config: Config = {
   PORT: Number(process.env.PORT) || 3000,
 
   // JWT Settings
-  JWT_SECRET: process.env.JWT_SECRET || "your_default_jwt_secret",
+  JWT_SECRET: process.env.JWT_SECRET || "",
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1h",
 
   // MongoDB default connection
@@ -35,15 +35,15 @@ const config: Config = {
   // Tenant-specific MongoDB connection strings
   TENANT_A_MONGO_URI: process.env.TENANT_A_MONGO_URI || "",
   TENANT_B_MONGO_URI: process.env.TENANT_B_MONGO_URI || "",
-  TENANT_C_MONGO_URI: process.env.TENANT_C_MONGO_URI || "",
+  SCHOOL_ATTENDANCE_MONGO_URI: process.env.SCHOOL_ATTENDANCE_MONGO_URI || "",
   TENANT_D_MONGO_URI: process.env.TENANT_D_MONGO_URI || "",
 
   // nodemailer credentials
-  EMAIL_HOST: process.env.EMAIL_HOST || "smtp.gmail.com",
+  EMAIL_HOST: process.env.EMAIL_HOST || "",
   EMAIL_PORT: Number(process.env.EMAIL_PORT) || 587,
-  EMAIL_USER: process.env.EMAIL_USER || "enayetflweb@gmail.com",
-  EMAIL_PASS: process.env.EMAIL_PASS || "gjfd lwpw exjn kagq",
-  EMAIL_FROM: process.env.EMAIL_FROM || "enayetflweb@gmail.com",
+  EMAIL_USER: process.env.EMAIL_USER || "",
+  EMAIL_PASS: process.env.EMAIL_PASS || "",
+  EMAIL_FROM: process.env.EMAIL_FROM || "",
 };
 
 export default config;
