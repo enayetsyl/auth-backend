@@ -41,6 +41,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -137,9 +148,14 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(401).json({ message: "Invalid credentials." });
             return;
         }
-        // Generate a JWT token with user and tenant details.
-        const token = authService.generateToken(user, req.tenantId);
-        res.status(200).json({ token });
+        // 1️⃣ Generate short‐lived access token
+        const accessToken = authService.generateToken(user, req.tenantId);
+        // 2️⃣ Generate long‐lived refresh token
+        const refreshToken = jsonwebtoken_1.default.sign({ userId: user._id, tenant: req.tenantId, role: user.role }, config_1.default.JWT_SECRET, { expiresIn: config_1.default.JWT_REFRESH_TOKEN_EXPIRES_IN });
+        // Convert to plain object and drop sensitive fields
+        const userObj = user.toObject();
+        const { password } = userObj, publicUser = __rest(userObj, ["password"]);
+        res.status(200).json({ accessToken, refreshToken, globalUser: publicUser });
     }
     catch (error) {
         next(error);

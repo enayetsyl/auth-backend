@@ -13,6 +13,7 @@ const config = {
     // JWT Settings
     JWT_SECRET: process.env.JWT_SECRET || "",
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1h",
+    JWT_REFRESH_TOKEN_EXPIRES_IN: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN || "180d",
     // MongoDB default connection
     MONGO_URI_DEFAULT: process.env.MONGO_URI_DEFAULT || "",
     // Tenant-specific MongoDB connection strings

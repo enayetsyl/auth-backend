@@ -124,9 +124,21 @@ export const login = async (
       return;
     }
 
-    // Generate a JWT token with user and tenant details.
-    const token = authService.generateToken(user, req.tenantId);
-    res.status(200).json({ token });
+      // 1️⃣ Generate short‐lived access token
+      const accessToken = authService.generateToken(user, req.tenantId);
+
+      // 2️⃣ Generate long‐lived refresh token
+      const refreshToken = jwt.sign(
+        { userId: user._id, tenant: req.tenantId, role: user.role },
+        config.JWT_SECRET as jwt.Secret,
+        { expiresIn: config.JWT_REFRESH_TOKEN_EXPIRES_IN } as jwt.SignOptions
+      );
+  
+       // Convert to plain object and drop sensitive fields
+    const userObj = user.toObject();
+    const { password, ...publicUser } = userObj;
+       
+      res.status(200).json({ accessToken, refreshToken, globalUser: publicUser });
   } catch (error) {
     next(error);
   }
