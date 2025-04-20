@@ -251,11 +251,14 @@ exports.passwordResetConfirm = passwordResetConfirm;
 const refreshToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { token } = req.body;
+        console.log('token', token);
         if (!token) {
             res.status(400).json({ message: 'Refresh token is required.' });
+            console.log('no token');
             return;
         }
         const newToken = authService.refreshToken(token);
+        console.log('new token', newToken);
         res.status(200).json({ token: newToken });
     }
     catch (error) {

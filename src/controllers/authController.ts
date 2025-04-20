@@ -258,11 +258,14 @@ export const passwordResetConfirm = async (
 export const refreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { token } = req.body;
+    console.log('token',token)
     if (!token) {
       res.status(400).json({ message: 'Refresh token is required.' });
+      console.log('no token')
       return;
     }
     const newToken = authService.refreshToken(token);
+    console.log('new token', newToken)
     res.status(200).json({ token: newToken });
   } catch (error) {
     next(error);

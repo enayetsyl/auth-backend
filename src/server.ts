@@ -24,7 +24,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 // CORS: whitelist only http://localhost:3000
-const whitelist = ['http://localhost:3000'];
+const whitelist = ['http://localhost:3000', 'https://scd-school-attendance.vercel.app'];
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl)
